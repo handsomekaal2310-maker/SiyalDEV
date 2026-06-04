@@ -1,0 +1,33 @@
+Paste this code inside Google Sheet > Extensions > Apps Script.
+Deploy it as Web App with access set to Anyone, then paste the Web App URL in assets/js/app.js.
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = e.parameter || {};
+
+    if (!data.name || !data.phone) {
+      throw new Error("Name and phone are required.");
+    }
+
+    sheet.appendRow([
+      new Date(),
+      data.name || "",
+      data.phone || "",
+      data.email || "",
+      data.interest || "",
+      data.message || "",
+      data.source || "",
+      data.page || "",
+      data.submittedAt || ""
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
