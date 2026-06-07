@@ -179,7 +179,15 @@ forms.forEach((form) => {
     }
     const payload = new URLSearchParams(formData);
     payload.set("page", window.location.href);
-    payload.set("submittedAt", new Date().toISOString());
+    payload.set("submittedAt", new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    }));
 
     submitButton.disabled = true;
     status.textContent = "Sending...";
