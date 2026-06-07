@@ -4,7 +4,10 @@ Deploy it as Web App with access set to Anyone, then paste the Web App URL in as
 function doPost(e) {
   try {
     var spreadsheet = SpreadsheetApp.openById("12drDjPmaX_Y8tCmSbWiCITUJ1bkxOUJMogVqKiPSy6c");
-    var sheet = spreadsheet.getSheetByName("Website Form Leads") || spreadsheet.getSheets()[0];
+    var sheet = getSheetByGid_(spreadsheet, 581604022);
+    if (!sheet) {
+      throw new Error("Website Form Leads sheet tab was not found.");
+    }
     var data = e.parameter || {};
 
     if (!data.name || !data.phone) {
@@ -31,4 +34,14 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ status: "error", message: error.message }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+function getSheetByGid_(spreadsheet, gid) {
+  var sheets = spreadsheet.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].getSheetId() === gid) {
+      return sheets[i];
+    }
+  }
+  return null;
 }
