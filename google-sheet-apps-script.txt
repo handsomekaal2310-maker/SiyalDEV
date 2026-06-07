@@ -3,7 +3,8 @@ Deploy it as Web App with access set to Anyone, then paste the Web App URL in as
 
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var spreadsheet = SpreadsheetApp.openById("12drDjPmaX_Y8tCmSbWiCITUJ1bkxOUJMogVqKiPSy6c");
+    var sheet = spreadsheet.getSheetByName("Sheet1") || spreadsheet.getSheets()[0];
     var data = e.parameter || {};
 
     if (!data.name || !data.phone) {

@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = "PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEEELqQRG3mgXc1aqlEQf9cOPXPHD5XgGC1jRRzGcXdeuqBVNRmjfRHpa3p7XA7nhYwQ/exec";
 
 const body = document.body;
 const header = document.querySelector("[data-header]");
