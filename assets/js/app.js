@@ -173,7 +173,9 @@ forms.forEach((form) => {
     const countryCode = formData.get("countryCode") || "";
     const phone = String(formData.get("phone") || "").trim();
     if (phone && countryCode && !phone.startsWith("+")) {
-      formData.set("phone", `${countryCode} ${phone}`);
+      formData.set("phone", `'${countryCode} ${phone}`);
+    } else if (phone && phone.startsWith("+")) {
+      formData.set("phone", `'${phone}`);
     }
     const payload = new URLSearchParams(formData);
     payload.set("page", window.location.href);
