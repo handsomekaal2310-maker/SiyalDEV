@@ -670,6 +670,17 @@ h3 {
   outline: none;
 }
 
+.phone-field {
+  display: grid;
+  grid-template-columns: minmax(132px, 0.42fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.phone-field select,
+.phone-field input {
+  min-width: 0;
+}
+
 .lead-form textarea {
   min-height: 112px;
   padding-top: 14px;

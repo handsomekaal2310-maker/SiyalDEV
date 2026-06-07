@@ -13,6 +13,21 @@ const leadership = document.querySelector(".leadership");
 let lastFocusedElement = null;
 let lastScrollY = window.scrollY;
 
+const countryCodes = [
+  { label: "India", code: "+91" },
+  { label: "UAE", code: "+971" },
+  { label: "USA", code: "+1" },
+  { label: "UK", code: "+44" },
+  { label: "Canada", code: "+1" },
+  { label: "Australia", code: "+61" },
+  { label: "Singapore", code: "+65" },
+  { label: "Saudi Arabia", code: "+966" },
+  { label: "Qatar", code: "+974" },
+  { label: "Kuwait", code: "+965" },
+  { label: "Oman", code: "+968" },
+  { label: "Bahrain", code: "+973" }
+];
+
 function updateHeader() {
   if (!header) return;
   header.classList.toggle("is-scrolled", window.scrollY > 18);
@@ -122,6 +137,26 @@ document.querySelectorAll(".faq-item button").forEach((button) => {
 });
 
 forms.forEach((form) => {
+  const phoneInput = form.querySelector("input[name='phone']");
+  if (phoneInput && !phoneInput.closest(".phone-field")) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "phone-field";
+
+    const select = document.createElement("select");
+    select.name = "countryCode";
+    select.setAttribute("aria-label", "Country code");
+    countryCodes.forEach((country) => {
+      const option = document.createElement("option");
+      option.value = country.code;
+      option.textContent = `${country.label} ${country.code}`;
+      select.appendChild(option);
+    });
+
+    phoneInput.parentNode.insertBefore(wrapper, phoneInput);
+    wrapper.appendChild(select);
+    wrapper.appendChild(phoneInput);
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const status = form.querySelector("[data-form-status]");
@@ -134,7 +169,13 @@ forms.forEach((form) => {
       return;
     }
 
-    const payload = new URLSearchParams(new FormData(form));
+    const formData = new FormData(form);
+    const countryCode = formData.get("countryCode") || "";
+    const phone = String(formData.get("phone") || "").trim();
+    if (phone && countryCode && !phone.startsWith("+")) {
+      formData.set("phone", `${countryCode} ${phone}`);
+    }
+    const payload = new URLSearchParams(formData);
     payload.set("page", window.location.href);
     payload.set("submittedAt", new Date().toISOString());
 
