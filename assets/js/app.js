@@ -11,6 +11,7 @@ const closeFormButtons = document.querySelectorAll("[data-close-form]");
 const closeSuccessButtons = document.querySelectorAll("[data-close-success]");
 const forms = document.querySelectorAll("[data-lead-form]");
 const carousels = document.querySelectorAll("[data-carousel]");
+const stickyBrochures = document.querySelectorAll(".sticky-brochure");
 const year = document.querySelector("[data-year]");
 const leadership = document.querySelector(".leadership");
 let lastFocusedElement = null;
@@ -34,6 +35,9 @@ const countryCodes = [
 function updateHeader() {
   if (!header) return;
   header.classList.toggle("is-scrolled", window.scrollY > 18);
+  stickyBrochures.forEach((button) => {
+    button.classList.toggle("is-visible", window.scrollY > 140);
+  });
 }
 
 function openModal(event) {
