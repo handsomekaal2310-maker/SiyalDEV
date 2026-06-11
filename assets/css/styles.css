@@ -1153,24 +1153,116 @@ h3 {
   font-size: 14px;
 }
 
-.interior-grid {
-  margin-top: 42px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+.image-carousel {
+  position: relative;
+  width: min(1180px, 100%);
+  margin: 42px auto 0;
+  overflow: hidden;
+  background: #11110f;
+  box-shadow: 0 28px 80px rgba(27, 24, 20, 0.16);
 }
 
-.interior-grid img {
+.carousel-track {
+  display: flex;
+  transition: transform 0.55s ease;
+  will-change: transform;
+}
+
+.carousel-slide {
+  position: relative;
+  min-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #d7cab6;
+}
+
+.carousel-slide img {
   width: 100%;
-  height: clamp(240px, 28vw, 440px);
+  height: clamp(420px, 56vw, 720px);
   object-fit: cover;
-  box-shadow: 0 22px 55px rgba(27, 24, 20, 0.09);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transform: scale(1.01);
+  transition: transform 0.7s ease, filter 0.7s ease;
 }
 
-.interior-grid img:hover {
-  transform: translateY(-5px) scale(1.015);
+.carousel-slide.is-active img {
+  transform: scale(1.035);
   filter: saturate(1.04) contrast(1.03);
+}
+
+.carousel-slide figcaption {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: rgba(0, 0, 0, 0.34);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(8px);
+  transition: background 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.56);
+  border-color: rgba(216, 189, 146, 0.85);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.carousel-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.carousel-prev {
+  left: 22px;
+}
+
+.carousel-next {
+  right: 22px;
+}
+
+.carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  transform: translateX(-50%);
+}
+
+.carousel-dots button {
+  width: 34px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.48);
+  cursor: pointer;
+  transition: background 0.22s ease, width 0.22s ease;
+}
+
+.carousel-dots button.is-active {
+  width: 48px;
+  background: #d8bd92;
 }
 
 .map-section {
@@ -1368,8 +1460,7 @@ h3 {
   }
 
   .location-grid,
-  .amenities-list ol,
-  .interior-grid {
+  .amenities-list ol {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1628,8 +1719,7 @@ h3 {
   .project-facts,
   .floor-grid,
   .location-grid,
-  .amenities-list ol,
-  .interior-grid {
+  .amenities-list ol {
     grid-template-columns: 1fr;
   }
 
@@ -1656,10 +1746,42 @@ h3 {
     font-size: 13px;
   }
 
-  .interior-grid img,
+  .carousel-slide img,
   .map-section iframe {
     min-height: 320px;
     height: 320px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-prev {
+    left: 12px;
+  }
+
+  .carousel-next {
+    right: 12px;
+  }
+
+  .carousel-slide figcaption {
+    left: 14px;
+    bottom: 16px;
+    max-width: calc(100% - 120px);
+    font-size: 11px;
+  }
+
+  .carousel-dots {
+    bottom: 18px;
+  }
+
+  .carousel-dots button {
+    width: 24px;
+  }
+
+  .carousel-dots button.is-active {
+    width: 36px;
   }
 
   .scene-card {

@@ -103,11 +103,20 @@
     <section class="interior-gallery">
       <p class="eyebrow">Interior Gallery</p>
       <h2>Finished with intention</h2>
-      <div class="interior-grid">
-        <img src="assets/images/balcony.webp" alt="Interior balcony">
-        <img src="assets/images/villa.webp" alt="Interior view">
-        <img src="assets/images/wide-view.webp" alt="Wide residence view">
-        <img src="assets/images/exterior.webp" alt="Exterior detail">
+      <div class="image-carousel" data-carousel>
+        <div class="carousel-track" data-carousel-track>
+          <figure class="carousel-slide is-active"><img src="assets/images/balcony.webp" alt="Interior balcony"><figcaption>Balcony</figcaption></figure>
+          <figure class="carousel-slide"><img src="assets/images/villa.webp" alt="Front view"><figcaption>Front View</figcaption></figure>
+          <figure class="carousel-slide"><img src="assets/images/wide-view.webp" alt="Wide residence view"><figcaption>Wide View</figcaption></figure>
+          <figure class="carousel-slide"><img src="assets/images/exterior.webp" alt="Exterior detail"><figcaption>Exterior</figcaption></figure>
+        </div>
+        <button class="carousel-btn carousel-prev" type="button" aria-label="Previous image" data-carousel-prev>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.8 4.2 8 12l7.8 7.8-1.6 1.6L4.8 12l9.4-9.4 1.6 1.6z"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" type="button" aria-label="Next image" data-carousel-next>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.2 19.8 7.8-7.8-7.8-7.8 1.6-1.6 9.4 9.4-9.4 9.4-1.6-1.6z"/></svg>
+        </button>
+        <div class="carousel-dots" aria-label="Image gallery controls" data-carousel-dots></div>
       </div>
     </section>
 

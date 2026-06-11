@@ -8,6 +8,7 @@ const pageContent = document.querySelector("[data-page-content]");
 const openFormButtons = document.querySelectorAll("[data-open-form]");
 const closeFormButtons = document.querySelectorAll("[data-close-form]");
 const forms = document.querySelectorAll("[data-lead-form]");
+const carousels = document.querySelectorAll("[data-carousel]");
 const year = document.querySelector("[data-year]");
 const leadership = document.querySelector(".leadership");
 let lastFocusedElement = null;
@@ -134,6 +135,54 @@ document.querySelectorAll(".faq-item button").forEach((button) => {
       item.querySelector(".faq-answer").hidden = false;
     }
   });
+});
+
+carousels.forEach((carousel) => {
+  const track = carousel.querySelector("[data-carousel-track]");
+  const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
+  const prevButton = carousel.querySelector("[data-carousel-prev]");
+  const nextButton = carousel.querySelector("[data-carousel-next]");
+  const dotsWrap = carousel.querySelector("[data-carousel-dots]");
+  let activeIndex = 0;
+  let touchStartX = 0;
+
+  if (!track || slides.length < 2) return;
+
+  slides.forEach((_, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Show image ${index + 1}`);
+    dot.addEventListener("click", () => setSlide(index));
+    dotsWrap?.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsWrap?.querySelectorAll("button") || []);
+
+  function setSlide(index) {
+    activeIndex = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${activeIndex * 100}%)`;
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle("is-active", slideIndex === activeIndex);
+    });
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === activeIndex);
+      dot.setAttribute("aria-current", dotIndex === activeIndex ? "true" : "false");
+    });
+  }
+
+  prevButton?.addEventListener("click", () => setSlide(activeIndex - 1));
+  nextButton?.addEventListener("click", () => setSlide(activeIndex + 1));
+  carousel.addEventListener("touchstart", (event) => {
+    touchStartX = event.touches[0].clientX;
+  }, { passive: true });
+  carousel.addEventListener("touchend", (event) => {
+    const touchEndX = event.changedTouches[0].clientX;
+    const distance = touchEndX - touchStartX;
+    if (Math.abs(distance) < 45) return;
+    setSlide(activeIndex + (distance < 0 ? 1 : -1));
+  }, { passive: true });
+
+  setSlide(0);
 });
 
 forms.forEach((form) => {
