@@ -513,7 +513,7 @@ h3 {
 
 .benefit-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   margin-top: 0;
   border-top: 1px solid rgba(137, 137, 137, 0.34);
@@ -787,14 +787,17 @@ h3 {
 }
 
 .site-footer img {
-  width: 120px;
-  margin-bottom: 14px;
+  width: 92px;
+  margin-bottom: 18px;
 }
 
-.site-footer p {
+.site-footer p,
+.site-footer address {
   margin: 0;
   color: rgba(255, 255, 255, 0.62);
   font-size: 14px;
+  line-height: 1.7;
+  font-style: normal;
 }
 
 .footer-columns {
