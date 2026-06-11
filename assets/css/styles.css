@@ -1154,10 +1154,41 @@ h3 {
   padding: 0 22px 28px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px 24px;
-  list-style-position: inside;
+  gap: 14px 22px;
+  list-style: none;
   color: rgba(255, 255, 255, 0.78);
   font-size: 14px;
+}
+
+.amenities-list li {
+  position: relative;
+  min-height: 48px;
+  padding: 13px 14px 13px 48px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(216, 189, 146, 0.15);
+  line-height: 1.35;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.amenities-list li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  background: #d8bd92;
+  transform: translateY(-50%);
+  clip-path: polygon(50% 0, 61% 34%, 98% 34%, 68% 55%, 79% 91%, 50% 69%, 21% 91%, 32% 55%, 2% 34%, 39% 34%);
+  opacity: 0.95;
+}
+
+.amenities-list li:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(216, 189, 146, 0.34);
 }
 
 .image-carousel {
@@ -1751,6 +1782,17 @@ h3 {
   .amenities-list ol {
     padding: 0 16px 24px;
     font-size: 13px;
+  }
+
+  .amenities-list li {
+    min-height: 46px;
+    padding: 12px 12px 12px 44px;
+  }
+
+  .amenities-list li::before {
+    left: 12px;
+    width: 20px;
+    height: 20px;
   }
 
   .carousel-slide img,
