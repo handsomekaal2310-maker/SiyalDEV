@@ -4,9 +4,11 @@ const body = document.body;
 const header = document.querySelector("[data-header]");
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const modal = document.querySelector("[data-modal]");
+const successModal = document.querySelector("[data-success-modal]");
 const pageContent = document.querySelector("[data-page-content]");
 const openFormButtons = document.querySelectorAll("[data-open-form]");
 const closeFormButtons = document.querySelectorAll("[data-close-form]");
+const closeSuccessButtons = document.querySelectorAll("[data-close-success]");
 const forms = document.querySelectorAll("[data-lead-form]");
 const carousels = document.querySelectorAll("[data-carousel]");
 const year = document.querySelector("[data-year]");
@@ -54,6 +56,24 @@ function closeModal() {
   if (lastFocusedElement) lastFocusedElement.focus();
 }
 
+function openSuccessModal() {
+  closeModal();
+  if (!successModal) return;
+  successModal.classList.add("is-open");
+  successModal.setAttribute("aria-hidden", "false");
+  if (pageContent) pageContent.inert = true;
+  body.classList.add("modal-open");
+  successModal.querySelector("[data-close-success]")?.focus();
+}
+
+function closeSuccessModal() {
+  if (!successModal) return;
+  successModal.classList.remove("is-open");
+  successModal.setAttribute("aria-hidden", "true");
+  if (pageContent) pageContent.inert = false;
+  body.classList.remove("modal-open");
+}
+
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
 
@@ -99,9 +119,13 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 
 openFormButtons.forEach((button) => button.addEventListener("click", openModal));
 closeFormButtons.forEach((button) => button.addEventListener("click", closeModal));
+closeSuccessButtons.forEach((button) => button.addEventListener("click", closeSuccessModal));
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeModal();
+  if (event.key === "Escape") {
+    closeModal();
+    closeSuccessModal();
+  }
   if (event.key !== "Tab" || !modal?.classList.contains("is-open")) return;
 
   const focusable = modal.querySelectorAll("button, input, select, textarea, a[href]");
@@ -250,6 +274,7 @@ forms.forEach((form) => {
       });
       form.reset();
       status.textContent = "Request sent. Our team will contact you soon.";
+      openSuccessModal();
     } catch (error) {
       status.textContent = "Submit nahi hua. Please dobara try karein.";
       status.classList.add("is-error");
