@@ -1015,6 +1015,13 @@ h3 {
   font-size: clamp(19px, 2vw, 29px);
   font-weight: 500;
   line-height: 1.16;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.project-facts div:nth-child(4) strong {
+  font-size: clamp(15px, 1.25vw, 20px);
+  line-height: 1.28;
 }
 
 .floor-section,
